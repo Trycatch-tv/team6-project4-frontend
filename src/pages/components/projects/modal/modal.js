@@ -1,7 +1,9 @@
 import Link from 'next/link';
+
+
 export default function Modal({ isVisible, close, data }) {
 
-  const datal = data[0]
+console.log(data)
 
   if (!isVisible) return null
 
@@ -28,11 +30,12 @@ export default function Modal({ isVisible, close, data }) {
         <div className="bg-white p-6 rounded-lg shadow-md">
           <div className="mb-2 text-lg text-semi-bold ">
             <span className="font-semibold color-red-500">Project Name:</span>
-            {datal.nombre}
+           
+            {data[0]?.nombre}
           </div>
           <div className="mb-2 text-lg text-semi-bold ">
             <span className="font-semibold">Description:</span>
-            {datal.descripcion}
+            {data[0]?.descripcion}
           </div>
           <div className="mb-2 text-lg text-semi-bold ">
             <span className="font-semibold">Participants:</span> [..participants..]
@@ -43,12 +46,12 @@ export default function Modal({ isVisible, close, data }) {
 
           </div>
           <div className="mb-2 text-lg text-semi-bold text-green-600 mb-6">
-            <span className="font-semibold  text-black">Status:</span> {datal.fk_estado}
+            <span className="font-semibold  text-black">Status:</span> {data[0]?.fk_estado}
           
           </div>
 
-          <Link className='px-6 py-2 bg-indigo-500 rounded-lg text-white text-xl' href={`/proyectUpdate/${datal.id}`}>EDIT</Link>
-          {console.log(datal.id)}
+          <Link className='px-6 py-2 bg-indigo-500 rounded-lg text-white text-xl' href={`/proyectUpdate/${data[0]?.id}`}>EDIT</Link>
+       
         </div>
       </div>
     </div>

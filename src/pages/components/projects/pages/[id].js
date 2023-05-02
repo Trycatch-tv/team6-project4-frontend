@@ -1,4 +1,4 @@
-import React from 'react'
+/* import React from 'react'
 import Dashboard from '../components/dashboard'
 
 export default function ProjectPage({ dataid }) {
@@ -14,4 +14,4 @@ export async function getServerSideProps({ params }) {
       dataid
     }
   }
-}
+} */

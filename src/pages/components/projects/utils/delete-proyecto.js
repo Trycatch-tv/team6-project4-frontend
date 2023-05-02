@@ -1,13 +1,18 @@
-import handleDelete from '../dashboard'
 
-export default async function deleteProyecto(req, res) {
-  const { id } = req.query;
+export default async function DeleteProyecto(id) {
 
-  try {
-    await handleDelete(id);
-    res.status(200).json({ message: 'Proyecto eliminado exitosamente' });
-  } catch (error) {
-    console.error('Error eliminando el proyecto:', error);
-    res.status(500).json({ message: 'Error eliminando el proyecto' });
-  }
+    try {
+      const response = await fetch(
+        `https://team6.onrender.com/api/Proyectos/${id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      
+      
+
+    } catch (error) {
+      console.error('Error eliminando el recurso 222:', error);
+    }
+   
 }
