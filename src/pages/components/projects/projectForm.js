@@ -1,9 +1,9 @@
 import { useState } from "react";
 import CreateProject from './utils/create-project'
 import BringUsers from "./utils/bring-users";
-
+import { useRouter } from 'next/router';
 export default function ProjectForm() {
-
+const router = useRouter()
     useData()
    
     const [projectName, setProjectName] = useState("");
@@ -17,14 +17,18 @@ export default function ProjectForm() {
     }
 
     function handlesubmit(e) {
+  
+    
         e.preventDefault()
         const project = {
             nombre: projectName,
             descripcion: description,
-            fk_usuario: 2,
+            fk_usuario: parseInt(person),
             fk_estado: 2
         }
         CreateProject(project)
+        alert("PROYECTO CREADO !!!")
+        router.push('/components/projects/dashboard');
     }
 
 
@@ -44,8 +48,8 @@ export default function ProjectForm() {
 
                         onChange={(event) => setPerson(event.target.value)}
                     >
-                        {users?.map((option, index) => (
-                            <option key={index} value={option.username}>
+                        {Array.isArray(users) && users?.map((option, index) => (
+                            <option key={index} value={option.id}>
                                 {option.username}
                             </option>
                         ))}

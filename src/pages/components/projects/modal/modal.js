@@ -1,10 +1,11 @@
 import Link from 'next/link';
+import { useState } from 'react';
 
 
 export default function Modal({ isVisible, close, data }) {
 
-console.log(data)
 
+  const status = data[0]?.fk_estado
   if (!isVisible) return null
 
   function handleClose(e) {
@@ -45,9 +46,9 @@ console.log(data)
 
 
           </div>
-          <div className="mb-2 text-lg text-semi-bold text-green-600 mb-6">
-            <span className="font-semibold  text-black">Status:</span> {data[0]?.fk_estado}
-          
+          <div className="mb-2 text-lg text-semi-bold mb-6">
+            <p className="font-semibold  "> Status: <span className='text-green-300'>{status == 1 && "Finalizado" || status  == 2 && "En Proceso" || status == 3 && "Iniciado" }</span> 
+            </p> 
           </div>
 
           <Link className='px-6 py-2 bg-indigo-500 rounded-lg text-white text-xl' href={`/proyectUpdate/${data[0]?.id}`}>EDIT</Link>

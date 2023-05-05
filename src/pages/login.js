@@ -2,9 +2,9 @@ import React from 'react'
 import Link from 'next/link';
 function Login() {
     return (
-        <div className='w-full h-screen bg-gray-100 flex justify-center items-center'>
+        <div className='w-full h-screen bg-gradient-to-br from-gray-500 to-blue-800 flex justify-center items-center'>
             <div className='flex justify-center w-[60%] '>
-                <div className='rounded-lg flex flex-col justify-center items-center w-[43%] border-2 bg-blue-500 text-6xl'>
+                <div className='rounded-lg flex flex-col justify-center items-center w-[48%]  bg-blue-500 text-6xl'>
             <Link className='px-6 py-2 bg-indigo-500 rounded-lg text-white text-xl' href={`/components/projects/dashboard`}>Dashboard Temporal puebas</Link>
                     <h2>Name APP</h2>
 

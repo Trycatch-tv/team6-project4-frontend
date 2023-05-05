@@ -1,12 +1,24 @@
 import React, { Fragment, useState } from 'react';
 import Modal from './modal/modal';
 import DeleteProyecto from './utils/delete-proyecto';
+
 import Link from 'next/link';
+import BringStatus from './utils/status';
+
 export default function Dashboard({ data }) {
   const [show, setShow] = useState(false);
   const [dataList, setDataList] = useState(data);
   const [projectId, setProjectId] = useState({});
-  
+  const [status, setStatus] = useState({});
+
+  useData()
+
+
+  async function useData() {
+    const data = await BringStatus();
+    setStatus(data)
+  }
+
 
   const handleProjectClick = async (id) => {
     const projectData = await dataList.filter((pry) => pry.id === id);
@@ -34,7 +46,7 @@ export default function Dashboard({ data }) {
         <hr className="border-t-3 border-blue-400 my-9 w-full" />
 
         <button className="w-22 text-2xl bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-xl">
-        <Link className='px-6 py-2 bg-indigo-500 rounded-lg text-white text-xl' href={`/components/projects/projectForm`}>Create New Project</Link>
+          <Link className='px-6 py-2 bg-indigo-500 rounded-lg text-white text-xl' href={`/components/projects/projectForm`}>Create New Project</Link>
         </button>
 
         <div className="container mx-auto px-4 py-8">
@@ -44,26 +56,36 @@ export default function Dashboard({ data }) {
                 <div
                   onClick={() => handleProjectClick(card.id)}
                   key={index}
-                  className="bg-white shadow-md rounded-lg p-4"
-                >
-                  <h3 className="text-lg font-bold mb-2 text-gray-600">{card.nombre}</h3>
+                  className="bg-white shadow-md rounded-lg p-4 w-[90%] hover:rotate-6 transition duration-300 "
+                ><div className='flex justify-between '>
+                    <h3 className="text-lg font-bold mb-2 text-gray-600 ">{card.nombre}</h3>
+                    <button
+                      onClick={() => {
+                        handleDeleteProyecto(card.id);
+                      }}
+                      className="px-2 py-1 bg-red-400 rounded-md"
+                    >
+                      De
+                    </button>
+                  </div>
                   <p className="text-gray-600">{card.descripcion}</p>
                   <div
                     id="options"
-                    className="flex justify-end mt-4 border-t-4 border-blue-300 pt-2"
+                    className="flex justify-start mt-4 border-t-4 border-blue-300 pt-2"
                     onClick={handleOptionsClick}
                   >
-                    <div className="px-2 py-1 bg-gray-100 rounded-md mr-2">
-                      Status: <span>iniciado</span>
+                    <div className="px-1 py-1 bg-gray-100 rounded-md mr-2">
+                      Status
+                      <select className='p-1 rounded-lg ml-2'>
+                        {Array.isArray(status) &&
+                          status.map((option, index) => (
+                            <option key={index} value={option.id} >
+                              {option.nombre}
+                            </option>
+                          ))}
+                      </select>
                     </div>
-                    <button
-                     onClick={() => {
-                      handleDeleteProyecto(card.id);
-                    }}
-                      className="px-2 py-1 bg-red-400 rounded-md"
-                    >
-                      Delete
-                    </button>
+
                   </div>
                 </div>
               ))}
@@ -71,7 +93,7 @@ export default function Dashboard({ data }) {
           ) : (
             <p>No hay elementos en la lista</p>
           )}
-          <Modal isVisible={show} close={() => setShow(false)} data={projectId}/>
+          <Modal isVisible={show} close={() => setShow(false)} data={projectId} />
         </div>
       </div>
     </Fragment>
@@ -88,4 +110,3 @@ export async function getServerSideProps() {
   };
 }
 
-  
