@@ -1,16 +1,66 @@
 import { useState } from "react";
-
- export default function ProjectForm({status}) {
-    console.log(status)
+import CreateProject from './utils/create-project'
+import BringUsers from "./utils/bring-users";
+import { useRouter } from 'next/router';
+export default function ProjectForm() {
+const router = useRouter()
+    useData()
+   
     const [projectName, setProjectName] = useState("");
     const [description, setDescription] = useState("");
+    const [person, setPerson] = useState(null);
+    const [users, setUsers] = useState(null);
+
+    async function useData() {
+        const data = await BringUsers();
+        setUsers(data)
+    }
+
+    function handlesubmit(e) {
+  
+    
+        e.preventDefault()
+        const project = {
+            nombre: projectName,
+            descripcion: description,
+            fk_usuario: parseInt(person),
+            fk_estado: 2
+        }
+        CreateProject(project)
+        alert("PROYECTO CREADO !!!")
+        router.push('/components/projects/dashboard');
+    }
+
+
     return (
+
         <div className="flex justify-center items-center h-screen bg-gray-600">
-            <form  className="p-8 bg-white rounded-lg shadow mx-4">
+            <form onSubmit={handlesubmit} className="p-8 bg-white rounded-lg shadow mx-4">
                 <h2 className="text-2xl font-medium mb-4">Nuevo Proyecto</h2>
                 <div className="mb-4">
+                    <label htmlFor="projectLeader" className="block font-medium mb-2">
+                        Leader:
+                    </label>
+
+
+                    <select
+                        className="block w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+
+                        onChange={(event) => setPerson(event.target.value)}
+                    >
+                        {Array.isArray(users) && users?.map((option, index) => (
+                            <option key={index} value={option.id}>
+                                {option.username}
+                            </option>
+                        ))}
+                    </select>
+
+
+
+                </div>
+                <div className="mb-4">
                     <label htmlFor="projectName" className="block font-medium mb-2">
-                    Project Name
+                        Project Name:
                     </label>
                     <input
                         type="text"
@@ -33,13 +83,13 @@ import { useState } from "react";
                         required
                     />
                 </div>          {/* LISTAR PARTICIPANTES  PERO ANTES AGREGARLOS !!!!!! */}
-               
+
                 <div className="flex items-center justify-center w-full">
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2">Create Project</button>
                 </div>
             </form>
         </div>
     );
+
+
 }
-
-
