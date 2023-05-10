@@ -1,4 +1,6 @@
 export default async function UpdateProject(id, project) {
+
+  console.log(id)
     const response = await fetch(`https://team6.onrender.com/api/Proyectos/${id}`,  {
       method: 'PUT',
       headers: {

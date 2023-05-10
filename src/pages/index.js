@@ -8,8 +8,7 @@ function Home() {
     <div className="flex flex-col h-screen">
       <nav className="flex justify-between items-center py-4 px-8 bg-white">
         <div className="flex items-center">
-          <button className="text-gray-600 mr-4">tools</button>
-          <button className="text-gray-600">features</button>
+        PlanMaster
         </div>
         <div className="flex items-center">
           <button className="text-gray-600 mr-4">login</button>
@@ -29,7 +28,7 @@ function Home() {
           objectFit="cover"
           className="rounded-full "
         />
-        <h2 className=" text-6xl absolute font-bold text-4xl text-white mt-28">name-app</h2>
+       <h2 className="mr-4 text-6xl absolute font-bold text-8xl text-white mb-90 bg-green-500 bg-opacity-8 font-sans">PlanMaster</h2>
       </div>
     </div>
   );
