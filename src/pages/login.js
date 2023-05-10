@@ -5,15 +5,14 @@ function Login() {
         <div className='w-full h-screen bg-gradient-to-br from-gray-500 to-blue-800 flex justify-center items-center'>
             <div className='flex justify-center w-[60%] '>
                 <div className='rounded-lg flex flex-col justify-center items-center w-[48%]  bg-blue-500 text-6xl'>
-            <Link className='px-6 py-2 bg-indigo-500 rounded-lg text-white text-xl' href={`/components/projects/dashboard`}>Dashboard Temporal puebas</Link>
-                    <h2>Name APP</h2>
+                    <h2 className="mr-4 text-6xl absolute font-bold text-6xl text-white mb-90  font-sans" >PlanMaster</h2>
 
 
                 </div>
                 <div>
                     <div className="rounded-lg w-full max-w-md p-8 space-y-3  bg-gray-300">
                         <h1 className="text-2xl font-bold text-center">Login</h1>
-                        <form novalidate="" action="" className="space-y-6 ng-untouched ng-pristine ng-valid">
+                        <form action="" className="space-y-6 ng-untouched ng-pristine ng-valid">
                             <div className="space-y-1 text-sm">
                                 <label for="username" className="block dark:text-gray-400">Username</label>
                                 <input type="text" name="username" id="username" placeholder="Username" className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-emerald-400" />
@@ -22,10 +21,12 @@ function Login() {
                                 <label for="password" className="block dark:text-gray-400">Password</label>
                                 <input type="password" name="password" id="password" placeholder="Password" className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-emerald-400" />
                                 <div className="flex justify-end text-xs dark:text-gray-400">
-                                    <a rel="noopener noreferrer" href="#">Forgot Password?</a>
+                                   
                                 </div>
                             </div>
-                            <button className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-emerald-400">Sign in</button>
+                            
+                            <Link className="block w-full p-3 text-center rounded-sm  text-gray-900 bg-emerald-400" href="/components/projects/dashboard">Sign in </Link>
+                           
                         </form>
                         <div className="flex items-center pt-4 space-x-1">
                             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>

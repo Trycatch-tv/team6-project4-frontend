@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import BringUsers from '../components/projects/utils/bring-users';
-import UpdateProject from '../components/projects/utils/update-project';
 import AssignProject from '../components/projects/utils/assign-roject';
+import UpdateTask from '../components/tasks/utils/updateTask';
+
 import { useRouter } from 'next/router';
+
+
 
 
 export default function ProjectUpdate({ projectData }) {
@@ -31,39 +34,23 @@ export default function ProjectUpdate({ projectData }) {
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    //------------------------ update project
-    const proj = {
-      nombre: project.nombre,
-      descripcion: project.descripcion,
-      fk_usuario: 2,
-      fk_estado: 3
-
+  function handleSubmit(e) {
+    e.preventDefault()
+    const task = {
+        fk_proyecto: parseInt(router.query.id),   
+        nombre: project.nombre,
+        descripcion: project.descripcion,
+        fk_proyecto: parseInt(router.query.id),  
+        fk_estado: 3,   //  default
+        fk_usuario: 2,  // iniciando con el mismo del Leader ,  backen aun no puede ser elejidos
+        fk_tamanio: 2   // default
     }
 
 
-    UpdateProject(parseInt(router.query.id), proj)
-    router.push('/components/projects/dashboard')
-    alert("Proyecto Actualizado !!")
-    //------------------------ add partners  no esta implementado en backend
-
-    /*   const asign = {
-        "fk_proyecto": 1,
-        "fk_usuario": 2
-      } */
-
-
-    const listaRenderizada = selectedOption.map((objeto) => {
-      const objetoActualizado = {
-        fk_proyecto: 1,
-        fk_usuario: objeto.id,
-      };
-      return objetoActualizado;
-    });
-    // AssignProject(listaRenderizada)
-  };
+    UpdateTask(task)
+    alert("falta backend")
+    router.push(`/components/tasks/dashboard/${parseInt(router.query.id)}`)
+}
 
   const handleOptionClick = (option) => {
     setSelectedOption(prevState => [...prevState, option]);
@@ -82,14 +69,14 @@ export default function ProjectUpdate({ projectData }) {
 
 
   return (
-    <div className="flex justify-center items-center h-screen p-9  bg-gray-600 ">
+    <div className="flex justify-center items-center h-screen bg-gray-600 pb-9 ">
 
-
-      <form className=" p-8 pt-4 bg-white rounded-lg shadow mx-4 w-[50%] " onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-medium mb-4">Actualizar Proyecto</h2>
+   
+      <form className="p-8 pt-4 bg-white rounded-lg shadow mx-4 w-[50%] h-[100%] " onSubmit={handleSubmit}>
+        <h2 className="text-2xl font-medium mb-4">Actualizar Tarea</h2>
         <div className="mb-4">
           <label htmlFor="name" className="block font-medium mb-2">
-            Nombre del proyecto
+            Nombre de Tarea
           </label>
           <input
             type="text"
@@ -114,7 +101,7 @@ export default function ProjectUpdate({ projectData }) {
         </div>
         <div>Partners:</div>
         {/*  ---------------------- Partners ------------- */}
-        <div className=' px-5 overflow-y-auto w-full h-[16%] border-2 border-gray-300 bg-gray-100 '>
+        <div className=' px-5 overflow-y-auto w-full h-[18%] border-2 border-gray-300 bg-gray-100 '>
 
           <ul className="dropdown__list">
             {selectedOption.length < 1 && <p className='text-2xl'> no partners </p>}
@@ -130,9 +117,10 @@ export default function ProjectUpdate({ projectData }) {
 
 
                   <span onClick={() => handleDelete(option)} className='text-red-500 text-xl bg-black'>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
+
                   </span>
 
                 </div>
@@ -144,17 +132,17 @@ export default function ProjectUpdate({ projectData }) {
 
         {/* //dropbox ini */}
         <div className='flex justify-center'>
-          <div className='py-1'>
+          <div  className="block  mb-2 ml-2  py-2 ">
             ADD PARTNERS
           </div>
         </div>
 
-        <div className=' bg-gray-200   shadow mx-auto  overflow-y-auto w-[90%] h-[18%] '>
+        <div className=' bg-gray-200   shadow mx-auto  overflow-y-auto w-[90%] h-[16%] '>
           <div className="dropdown ">
             {isOpen && (
               <div className="dropdown__options">
 
-                <ul className="dropdown__list  max-h-20 overflow-y-auto ">
+                <ul className="dropdown__list   ">
                   {users?.map((option, index) => (
 
                     <li
@@ -188,7 +176,7 @@ export default function ProjectUpdate({ projectData }) {
 export async function getServerSideProps({ params }) {
 
   const { id } = params;
-  const res = await fetch(`https://team6.onrender.com/api/Proyectos/${id}`);
+  const res = await fetch(`https://team6.onrender.com/api/Tarea/${id}`);
   const projectData = await res.json();
   return {
     props: {

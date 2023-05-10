@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
+import { useState } from 'react';
+
+
 
 export default function Modal({ isVisible, close, data }) {
-
-console.log(data)
 
   if (!isVisible) return null
 
@@ -20,14 +21,14 @@ console.log(data)
       <div className="w-[600px] flex flex-col border-2 border-gray-400 p-2 rounded-md bg-gray-800">
         <div className="flex justify-between items-center mx-2 mb-1 text-white">
           <h2>
-            TASK NAME   *icon*
+          TASK
           </h2>
           <button onClick={() => close()} className="place-self-end text-3xl font-bold ">
             X
           </button>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className=" bg-white p-6 rounded-lg shadow-md">
           <div className="mb-2 text-lg text-semi-bold ">
             <span className="font-semibold color-red-500">Task Name:</span>
            
@@ -40,11 +41,22 @@ console.log(data)
           <div className="mb-2 text-lg text-semi-bold ">
             <span className="font-semibold">Participants:</span> [..participants..]
 
+            {/* <select className='p-1 rounded-lg ml-2'>
+                        {Array.isArray(status) &&
+                          status.map((option, index) => (
+                            <option key={index} value={option.id} >
+                              {option.nombre}
+                            </option>
+                          ))}
+                      </select> */}
             {/* traer de usuarios filtrando... los de mismo FK de proyecto -> listar //  si no hay  mostrar mensaje no asignados */}    
             {/* condicionar fk_estado -> texto   muetstra actual */}
 
 
           </div>
+
+     
+
           <div className="text-lg text-semi-bold text-green-600 mb-6">
             <span className="font-semibold  text-black">Status:</span> {data[0]?.fk_estado}
           
